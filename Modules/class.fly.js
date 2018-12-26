@@ -45,8 +45,8 @@ module.exports = class Fly extends LivingCreature {
             var newX = newCell[0];
             var newY = newCell[1];
 
-            Fly.born++
-            Fly.current++;;
+            Fly.born++;
+            Fly.current++;
 
             matrix[newY][newX] = new Fly(newX, newY, 4);
             this.multiply = 0;
