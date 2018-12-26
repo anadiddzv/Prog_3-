@@ -22,15 +22,13 @@ server.listen(3000);
 
 var matrix = require("./Modules/matrix");
 
+var takt = 0;
+
 // var countStatistics = require("./Modules/statistica");
 
 
 io.on('connection', function (socket) {
     socket.emit("first matrix", matrix)
-
-    socket.on("send takt", function(takter){
-		takt = takter;
-    });
     
     // socket.on("set false", function (arr) {
     //     matrix[arr[0]][arr[1]].acted = false;
@@ -40,12 +38,24 @@ io.on('connection', function (socket) {
         for (var y = 0; y < matrix.length; y++) {
             for (var x = 0; x < matrix[y].length; x++) {
                 if (matrix[y][x].index == 1) {
-                    matrix[y][x].mul(matrix);
-                    // stat.Grass.born++;
+                    if(takt < 5)
+                    {
+                        matrix[y][x].mul(matrix);
+                    }
+                    else if(takt == 10)
+                    {
+                        takt = 0;
+                    }
                 }
                 else if (matrix[y][x].index == 2) {
-                    matrix[y][x].eat(matrix);
-                    // stat.GrassEater.born++;
+                    if(takt < 5)
+                    {
+                        matrix[y][x].eat(matrix);
+                    }
+                    else if(takt == 10)
+                    {
+                        takt = 0;
+                    }    
                 }
                 else if (matrix[y][x].index == 3) {
                     matrix[y][x].eat(matrix);
@@ -63,6 +73,7 @@ io.on('connection', function (socket) {
         }
 
         socket.emit("redraw matrix", matrix);
+        takt++
     }, time);
 
     
@@ -98,7 +109,7 @@ io.on('connection', function (socket) {
         var myJSON = JSON.stringify(stat);
         fs.writeFileSync("statistica.json", myJSON);
         socket.emit("stats", stat);
-    },25);
+    },1000);
 });
 
 var stat = {
