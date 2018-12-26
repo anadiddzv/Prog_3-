@@ -1,6 +1,7 @@
 var matrix = [];
 var socket;
 var stat;
+var takt = 0;
 var side = 15;
 
 function setup() {
@@ -85,6 +86,17 @@ function draw() {
             if (obj.index == 1) {
                 fill("green");
                 rect(x * side, y * side, side, side);
+
+                if(takt >= 10 && takt < 20){
+					fill("white");
+					rect(x * side, y * side, side, side);
+					socket.emit("send takt", takt);
+                }
+                else if(takt >= 20){
+					fill("green");
+					rect(x * side, y * side, side, side);
+					takt = 0;
+				}
             }
             else if (obj.index == 2) {
                 fill("yellow");
@@ -124,5 +136,6 @@ function draw() {
             }
         }
     }
+    takt++;
 }
 

@@ -28,6 +28,10 @@ var matrix = require("./Modules/matrix");
 io.on('connection', function (socket) {
     socket.emit("first matrix", matrix)
 
+    socket.on("send takt", function(takter){
+		takt = takter;
+    });
+    
     // socket.on("set false", function (arr) {
     //     matrix[arr[0]][arr[1]].acted = false;
     // })
@@ -94,7 +98,7 @@ io.on('connection', function (socket) {
         var myJSON = JSON.stringify(stat);
         fs.writeFileSync("statistica.json", myJSON);
         socket.emit("stats", stat);
-    }, 5000);
+    },25);
 });
 
 var stat = {
