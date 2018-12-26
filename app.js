@@ -58,7 +58,6 @@ io.on('connection', function (socket) {
                     }
                     else if(takt == 10)
                     {
-                        matrix[y][x].move(matrix);
                         takt = 0;
 
                     }    
@@ -71,6 +70,7 @@ io.on('connection', function (socket) {
                     else if (takt < 10){
                         matrix[y][x].eat(4, matrix); 
                     }
+                   
                 }
                 if (matrix[y][x].index == 4) {
                         matrix[y][x].move(matrix);
