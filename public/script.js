@@ -89,13 +89,14 @@ function draw() {
 
                 if(takt >= 5 && takt < 10){
 					fill("white");
-					rect(x * side, y * side, side, side);
+                    rect(x * side, y * side, side, side);
+
 					socket.emit("send takt", takt);
                 }
-                else if(takt >= 20){
+                else if(takt >= 10){
 					fill("green");
 					rect(x * side, y * side, side, side);
-					takt = 0;
+                    takt = 0;
 				}
             }
             else if (obj.index == 2) {

@@ -29,7 +29,7 @@ var takt = 0;
 
 io.on('connection', function (socket) {
     socket.emit("first matrix", matrix)
-    
+
     socket.on("send takt", function(takter){
         takt = takter;
     })
@@ -64,23 +64,17 @@ io.on('connection', function (socket) {
                     }    
                 }
                 else if (matrix[y][x].index == 3) {
-                    matrix[y][x].eat(matrix);
                     // stat.Predator.born++;
+                    if (takt < 5){
+                        matrix[y][x].eat(2, matrix);                        
+                    }
+                    else if (takt < 10){
+                        matrix[y][x].eat(4, matrix); 
+                    }
                 }
                 if (matrix[y][x].index == 4) {
-                    if(takt < 5)
-                    {
                         matrix[y][x].move(matrix);
                         // stat.Fly.born++;
-                    }
-                    // else if(takt == 10)
-                    // {
-                    //     matrix[y][x].die(matrix);
-                    // }
-                    else if(takt == 10)
-                    {
-                        takt = 0;
-                    } 
                 }
                 else if (matrix[y][x].index == 5) {
                     matrix[y][x].eat(matrix);
@@ -90,7 +84,8 @@ io.on('connection', function (socket) {
         }
 
         socket.emit("redraw matrix", matrix);
-        takt++
+        takt++;
+        // console.log(takt)
     }, time);
 
     

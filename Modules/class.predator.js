@@ -80,8 +80,8 @@ module.exports = class Predator extends LivingCreature {
         }
     }
 
-    eat(matrix) {
-        var newCell = randomInRange(this.chooseCell(2, matrix));
+    eat(m, matrix) {
+        var newCell = randomInRange(this.chooseCell(m, matrix));
 
         if (newCell) {
             var newX = newCell[0];
