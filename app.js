@@ -30,6 +30,10 @@ var takt = 0;
 io.on('connection', function (socket) {
     socket.emit("first matrix", matrix)
     
+    socket.on("send takt", function(takter){
+        takt = takter;
+    })
+
     // socket.on("set false", function (arr) {
     //     matrix[arr[0]][arr[1]].acted = false;
     // })
@@ -54,7 +58,9 @@ io.on('connection', function (socket) {
                     }
                     else if(takt == 10)
                     {
+                        matrix[y][x].move(matrix);
                         takt = 0;
+
                     }    
                 }
                 else if (matrix[y][x].index == 3) {
@@ -62,8 +68,19 @@ io.on('connection', function (socket) {
                     // stat.Predator.born++;
                 }
                 if (matrix[y][x].index == 4) {
-                    matrix[y][x].move(matrix);
-                    // stat.Fly.born++;
+                    if(takt < 5)
+                    {
+                        matrix[y][x].move(matrix);
+                        // stat.Fly.born++;
+                    }
+                    // else if(takt == 10)
+                    // {
+                    //     matrix[y][x].die(matrix);
+                    // }
+                    else if(takt == 10)
+                    {
+                        takt = 0;
+                    } 
                 }
                 else if (matrix[y][x].index == 5) {
                     matrix[y][x].eat(matrix);

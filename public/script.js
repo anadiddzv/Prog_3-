@@ -90,7 +90,7 @@ function draw() {
                 if(takt >= 5 && takt < 10){
 					fill("white");
 					rect(x * side, y * side, side, side);
-					// socket.emit("send takt", takt);
+					socket.emit("send takt", takt);
                 }
                 else if(takt >= 20){
 					fill("green");
